@@ -1,36 +1,43 @@
-<h1><a style="text-decoration: none; color: black;" href="{{ route('posts.index') }}">Posts List</a> </h1>
+@extends('layouts.template01')
 
-@if (session('message'))
-    <div>{{ session('message') }}</div>
-@endif
-<form action="{{ route('posts.search') }}" method="POST">
-    @csrf
-    <input type="text" name="termo" placeholder="Pesquisar...">
-    <button type="submit">Buscar</button>
+@section('title', 'Listagem dos Posts')    
 
-</form>
-<a href="{{ route('posts.create') }}">Novo Post</a>
-@if ($posts)
+@section('content')
 
-    @foreach ($posts as $post)
-        <fieldset style="border: 1px solid blue; border-radius: 10px;">
+    <h1><a style="text-decoration: none; color: black;" href="{{ route('posts.index') }}">Posts List</a> </h1>
 
-            <p><b>{{ $post->title }}</b></p>
-            <p>{{ $post->content }}</p>
-            <p><a href="{{ route('posts.show', $post->id) }}">Ler mais</a></p>
-            
-        </fieldset>
-    @endforeach
+    @if (session('message'))
+        <div>{{ session('message') }}</div>
+    @endif
+    <form action="{{ route('posts.search') }}" method="POST">
+        @csrf
+        <input type="text" name="termo" placeholder="Pesquisar...">
+        <button type="submit">Buscar</button>
+
+    </form>
+    <a href="{{ route('posts.create') }}">Novo Post</a>
     @if ($posts)
-        @if (isset($filters))
-            {{ $posts->appends($filters)->links() }}
+
+        @foreach ($posts as $post)
+            <fieldset style="border: 1px solid blue; border-radius: 10px;">
+                <img width="300"  src="{{ url("storage/{$post->image}") }}" alt="">
+                <p><b>{{ $post->title }}</b></p>
+                <p>{{ $post->content }}</p>
+                <p><a href="{{ route('posts.show', $post->id) }}">Ler mais</a></p>
+                
+            </fieldset>
+        @endforeach
+        @if ($posts)
+            @if (isset($filters))
+                {{ $posts->appends($filters)->links() }}
+            @else
+                {{ $posts->links() }}
+            @endif
         @else
-            {{ $posts->links() }}
+            <p>Nenhuma postagem encontrada!!</p>
         @endif
+    
     @else
         <p>Nenhuma postagem encontrada!!</p>
     @endif
-   
-@else
-    <p>Nenhuma postagem encontrada!!</p>
-@endif
+@endsection
