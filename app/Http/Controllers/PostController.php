@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
         // $posts = Post::orderBy('id', 'DESC')->paginate(10);
-        $posts = Post::latest()->paginate(10);
+        $posts = Post::latest()->paginate(5);
 
         return view('posts.index', compact('posts'));
     }
@@ -28,7 +28,7 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $data = $request->all();
-        if($request->image->isValid()){
+        if(isset($request->image) && $request->image->isValid()){
             $nameFile = Str::slug($request->title, '-').".".$request->image->getClientOriginalExtension();
             // $image = $request->image->store('posts');
             $image = $request->image->storeAs('posts', $nameFile);
@@ -120,7 +120,7 @@ class PostController extends Controller
         $filters = $request->except('_token');
         $posts = Post::where('title', 'LIKE', "%{$request->termo}%")
                         ->orWhere('content', 'LIKE', "%{$request->termo}%")
-                        ->paginate(10);
+                        ->paginate(5);
         // $posts = Post::orderBy('id', 'DESC')->paginate(10);
        
 
