@@ -30,7 +30,7 @@ class PdfController extends Controller
 
         $nameFile = Str::slug($post->title, '-').".pdf";
         
-        return  PDF::loadView('pdfs.index', compact('post', 'nameFile')) 
+        return  PDF::loadView('pdfs.test', compact('post', 'nameFile')) 
                         ->save(storage_path("app/public/pdfs/{$nameFile}"))                       
                         ->stream($nameFile);
         
