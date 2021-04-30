@@ -107,6 +107,13 @@
                                 </a>
 
                                 <a 
+                                    target="_blank"
+                                    href="{{ route('pdfs.todo', $post->id) }}" 
+                                    class="text-white rounded-full py-3 px-4 bg-blue-400 hover:bg-blue-900">
+                                    PDF
+                                </a>
+
+                                <a 
                                     href="{{ route('posts.edit', $post->id) }}" 
                                     class="text-white  rounded-full py-3 px-4 bg-red-400 hover:bg-red-900">
                                     Edit

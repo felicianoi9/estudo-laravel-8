@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/posts', [PostController::class,'index'])->name('posts.index');
 
     Route::get('/pdfs', [PdfController::class,'index'])->name('pdfs.index');
+    Route::get('/pdfs/{id}/gerar-pdf', [PdfController::class,'todo'])->name('pdfs.todo');
 });
 
 
